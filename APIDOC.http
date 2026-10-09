@@ -1,0 +1,68 @@
+###___ User Endpoints ___###
+
+#Api call for user creation
+###
+POST http://127.0.0.1:8000/v1/spending/register/
+Content-Type: application/json
+
+{
+    "username":"user1",
+    "email":"user1@gmail.com",
+    "password":"password"
+}
+
+#Api Call for getting loged in user
+###
+GET http://127.0.0.1:8000/v1/spending/me/
+Accept: application/json
+Authorization: Basic user1:password
+
+###___ Expense Endpoints ___###
+#Api call for listing all Expense under user
+###
+GET http://127.0.0.1:8000/v1/spending/expense/
+Accept: application/json
+Authorization: Basic user1:password
+
+#Api call for adding Expense
+###
+POST http://127.0.0.1:8000/v1/spending/expense/
+Content-Type: application/json
+Authorization: Basic user1:password
+
+{
+    "title":"rent",
+    "amount":5000,
+    "category":"OTHER",
+    "priority":"need",
+    "payment_method":"upi"
+}
+
+#Api call for Retriving record id=2
+###
+GET http://127.0.0.1:8000/v1/spending/expense/3/
+Accept: application/json
+Authorization: Basic user:password
+
+#Api call for updating
+###
+PUT http://127.0.0.1:8000/v1/spending/expense/2/
+Content-Type: application/json
+Authorization: Basic user:password
+
+{
+  "id": 3,
+  "title": "rent",
+  "amount": "7000.00",
+  "category": "OTHER",
+  "priority": "need",
+  "payment_method": "cash",
+  "created_at": "2026-10-09T06:11:25.959598Z",
+  "updated_at": "2026-10-09T06:11:25.959626Z",
+  "owner": 2
+}
+
+#Api call for deleting recoed
+###
+DELETE http://127.0.0.1:8000/v1/spending/expense/20/
+Authorization: Basic user:password
