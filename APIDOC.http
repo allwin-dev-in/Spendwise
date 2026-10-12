@@ -11,24 +11,39 @@ Content-Type: application/json
     "password":"password"
 }
 
+# APi call for token generation
+###
+POST http://127.0.0.1:8000/v1/spending/token/
+Content-Type: application/json
+
+{
+    "username":"user",
+    "password":"password"
+}
+
+
+
 #Api Call for getting loged in user
 ###
 GET http://127.0.0.1:8000/v1/spending/me/
 Accept: application/json
-Authorization: Basic user1:password
+# Authorization: Basic user1:password
+Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
 
 ###___ Expense Endpoints ___###
 #Api call for listing all Expense under user
 ###
 GET http://127.0.0.1:8000/v1/spending/expense/
 Accept: application/json
-Authorization: Basic user1:password
+# Authorization: Basic user1:password
+Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
 
 #Api call for adding Expense
 ###
 POST http://127.0.0.1:8000/v1/spending/expense/
 Content-Type: application/json
-Authorization: Basic user1:password
+# Authorization: Basic user1:password
+Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
 
 {
     "title":"rent",
@@ -40,15 +55,17 @@ Authorization: Basic user1:password
 
 #Api call for Retriving record id=2
 ###
-GET http://127.0.0.1:8000/v1/spending/expense/3/
+GET http://127.0.0.1:8000/v1/spending/expense/4/
 Accept: application/json
-Authorization: Basic user:password
+# Authorization: Basic user:password
+Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
 
 #Api call for updating
 ###
-PUT http://127.0.0.1:8000/v1/spending/expense/2/
+PUT http://127.0.0.1:8000/v1/spending/expense/3/
 Content-Type: application/json
-Authorization: Basic user:password
+# Authorization: Basic user:password
+Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
 
 {
   "id": 3,
@@ -64,5 +81,6 @@ Authorization: Basic user:password
 
 #Api call for deleting recoed
 ###
-DELETE http://127.0.0.1:8000/v1/spending/expense/20/
-Authorization: Basic user:password
+DELETE http://127.0.0.1:8000/v1/spending/expense/1/
+# Authorization: Basic user:password
+Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
