@@ -17,9 +17,10 @@ POST http://127.0.0.1:8000/v1/spending/token/
 Content-Type: application/json
 
 {
-    "username":"user",
+    "username":"user1",
     "password":"password"
 }
+
 
 
 
@@ -30,7 +31,11 @@ Accept: application/json
 # Authorization: Basic user1:password
 Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
 
+
+
+
 ###___ Expense Endpoints ___###
+
 #Api call for listing all Expense under user
 ###
 GET http://127.0.0.1:8000/v1/spending/expense/
@@ -43,11 +48,11 @@ Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
 POST http://127.0.0.1:8000/v1/spending/expense/
 Content-Type: application/json
 # Authorization: Basic user1:password
-Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
+Authorization: Token 89d19bf3532a58fe2e2c251c0bdfc579caca3374
 
 {
     "title":"rent",
-    "amount":5000,
+    "amount":3000,
     "category":"OTHER",
     "priority":"need",
     "payment_method":"upi"
@@ -84,3 +89,9 @@ Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
 DELETE http://127.0.0.1:8000/v1/spending/expense/1/
 # Authorization: Basic user:password
 Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
+
+# Api call for Todays Expense Summery
+###
+GET http://127.0.0.1:8000/v1/spending/expense/summary/
+Accept: application/json
+Authorization: Token 89d19bf3532a58fe2e2c251c0bdfc579caca3374

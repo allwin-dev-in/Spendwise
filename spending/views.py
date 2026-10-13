@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
+from django.db.models import Sum
+
+from datetime import datetime
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -90,4 +93,27 @@ class ExpenseRetriveUpdateDeleteView(APIView):
         instance.delete()
         return Response({"message":"Data Deleted ..."})
 
+class ExpenseSummaryView(APIView):
+    authentication_classes=[authentication.TokenAuthentication]
+    permission_classes=[IsOwner]
+
+    def get(self,request):
+        cur_date=datetime.now().date()
+        cur_month=datetime.now().month
+        cur_year=datetime.now().year
+        response_data={
+            "Todays_Total":0
+        }
+        todays_transations=Expense.objects.filter(owner=request.user,created_at__date=cur_date)
+        if todays_transations:
+            todays_transations_total=todays_transations.values("amount").aggregate(total=Sum("amount")).get("total")
+            category_wise_summary=todays_transations.values("category").annotate(total=Sum("amount"))
+            response_data["Todays_Total"]=todays_transations_total
+            response_data["category_wise_summary"]=category_wise_summary
+
+        cur_month_transation=Expense.objects.filter(owner=request.user,created_at__month=cur_month,created_at__year=cur_year)
+        if cur_month_transation:
+            monthly_total=cur_month_transation.values("amount").aggregate(total=Sum("amount")).get("total")
+            response_data["monthly_total"]=monthly_total
+        return Response(data=response_data)
 
