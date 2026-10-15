@@ -51,9 +51,9 @@ Content-Type: application/json
 Authorization: Token 89d19bf3532a58fe2e2c251c0bdfc579caca3374
 
 {
-    "title":"rent",
-    "amount":3000,
-    "category":"OTHER",
+    "title":"METRO CARD RECHARGE",
+    "amount":880,
+    "category":"TRAVEL",
     "priority":"need",
     "payment_method":"upi"
 }
@@ -93,5 +93,11 @@ Authorization: Token 8820d0bfa2f9ee6c6bf145ad1c52e2a9688b7a45
 # Api call for Todays Expense Summery
 ###
 GET http://127.0.0.1:8000/v1/spending/expense/summary/
+Accept: application/json
+Authorization: Token 89d19bf3532a58fe2e2c251c0bdfc579caca3374
+
+#api call for budget plan
+###
+GET http://127.0.0.1:8000/v1/spending/expense/budget/
 Accept: application/json
 Authorization: Token 89d19bf3532a58fe2e2c251c0bdfc579caca3374

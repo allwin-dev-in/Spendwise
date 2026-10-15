@@ -15,6 +15,7 @@ from spending.serializers import SignupSerializer
 from spending.serializers import ExpenseSerializer
 from spending.models import Expense
 from spending.permissions import IsOwner
+from spending.ai_service import get_budget_plan
 
 # Create your views here.
 
@@ -117,3 +118,26 @@ class ExpenseSummaryView(APIView):
             response_data["monthly_total"]=monthly_total
         return Response(data=response_data)
 
+class BudgetPlanView(APIView):
+    authentication_classes=[authentication.TokenAuthentication]
+    permission_classes=[permissions.IsAuthenticated]
+
+    def get(Self,request):
+        user=request.user
+        cur_year=datetime.now().year
+        cur_month=datetime.now().month
+
+        response_data={
+            "monthly_total":0
+        }
+        monthly_transations=Expense.objects.filter(owner=user,created_at__year=cur_year,created_at__month=cur_month)
+        if monthly_transations:
+            monthly_total=monthly_transations.values("amount").aggregate(total=Sum("amount")).get("total")
+            response_data["monthly_total"]=monthly_total
+            monthly_category_summary=monthly_transations.values("category").annotate(total=Sum("amount"))
+            response_data["category_summary"]=monthly_category_summary
+            budget_plan = get_budget_plan(response_data)
+            response_data["plan"]=budget_plan
+        return Response(response_data)
+    
+           
